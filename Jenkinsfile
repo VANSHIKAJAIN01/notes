@@ -16,15 +16,15 @@ pipeline {
         stage("Push to DockerHub") {
             steps {
                 withDockerRegistry([credentialsId: 'dockerHubCreds', url: '']) {
-                    sh "docker tag notes-app:latest your-dockerhub-username/notes-app:latest"
-                    sh "docker push your-dockerhub-username/notes-app:latest"
+                    sh "docker tag notes-app:latest vanshikajain01/notes-app:latest"
+                    sh "docker push vanshikajain01/notes-app:latest"
                 }
             }
         }
         stage("Deploy") {
             steps {
                 sh "echo Deploying the application..."
-                // Add your deployment script here
+                sh "docker run -d -p 8000:8000 vanshikajain01/notes-app:latest"
             }
         }
     }
